@@ -20,7 +20,7 @@ javascript: (function(e, a, g, h, f, c, b, d) {
         3) do something usefull
     */
 
-    var username, password, websiteBaseUrlLocal, service, country;
+    var username, password, websiteBaseUrlLocal, service, country, _env, _domain;
 
     if(typeof(Storage) !== "undefined") {
         console.log("storage present, try to retrieve values");
@@ -57,9 +57,20 @@ javascript: (function(e, a, g, h, f, c, b, d) {
         websiteBaseUrlLocal = prompt('your local websiteBaseuUrl?');
     }
 
-    console.log("try to login now");
-    $('#username').val(username);
-    $('#password').val(password);
-    $('#loginBox').submit();
+    var _env = prompt('which env? (loc for local, CN for a country, hq for HQ)');
+    if (_env === "loc") {
+        _domain = websiteBaseUrlLocal + "Service/Terminal.jsp";
+
+    } else if (_env === "hq") {
+        _domain = "http://www.jobrapido.net/Service/SuperTerminalSql.jsp";
+
+    } else {
+        _domain = "http://" + _env + ".jobrapido.com/Service/Terminal.jsp";
+
+    }
+
+    if (_domain !== "") {
+        window.open(_domain);
+    };
    
 });
